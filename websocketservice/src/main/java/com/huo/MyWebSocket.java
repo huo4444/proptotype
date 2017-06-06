@@ -1,5 +1,6 @@
 package com.huo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.OnClose;
@@ -25,12 +26,17 @@ public class MyWebSocket {
 
     private Session session;
 
+    @Autowired
+    PersonRepository personRepository;
+
     @OnOpen
     public void onOpen (Session session){
         this.session = session;
         webSocketSet.add(this);
         addOnlineCount();
         System.out.println("有新链接加入!当前在线人数为" + getOnlineCount());
+        Person p=new Person(session.getId(),20);
+//        personRepository.save(p);
 
     }
 
