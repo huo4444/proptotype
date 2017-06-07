@@ -1,6 +1,8 @@
 package com.huo;
 
+import com.gemstone.gemfire.cache.Region;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.OnClose;
@@ -27,7 +29,8 @@ public class MyWebSocket {
     private Session session;
 
     @Autowired
-    PersonRepository personRepository;
+    Region customer;
+
 
     @OnOpen
     public void onOpen (Session session){
@@ -35,8 +38,11 @@ public class MyWebSocket {
         webSocketSet.add(this);
         addOnlineCount();
         System.out.println("有新链接加入!当前在线人数为" + getOnlineCount());
-        Person p=new Person(session.getId(),20);
-//        personRepository.save(p);
+
+         Region r= SpringUtils.getApplicationContext().getBean(Region.class);
+        r.put("hello","value");
+
+
 
     }
 
