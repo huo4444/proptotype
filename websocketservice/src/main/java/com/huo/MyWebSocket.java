@@ -1,10 +1,6 @@
 package com.huo;
 
 import com.gemstone.gemfire.cache.Region;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
@@ -19,7 +15,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  *         Date 2017-06-06
  */
 @ServerEndpoint("/websocket")
-@Component
+//TODO 此類中依赖中如spring上下文中的服务对象需要特殊处理，似乎初始时上下文不一致
 public class MyWebSocket {
 
     private static int onlineCount = 0;
@@ -28,8 +24,6 @@ public class MyWebSocket {
 
     private Session session;
 
-    @Autowired
-    Region customer;
 
 
     @OnOpen
@@ -41,9 +35,6 @@ public class MyWebSocket {
 
          Region r= SpringUtils.getApplicationContext().getBean(Region.class);
         r.put("hello","value");
-
-
-
     }
 
     @OnClose
@@ -65,6 +56,10 @@ public class MyWebSocket {
     public void sendMessage (String message) throws IOException {
         this.session.getBasicRemote().sendText(message);
     }
+
+
+
+
 
     public static synchronized  int getOnlineCount (){
         return MyWebSocket.onlineCount;

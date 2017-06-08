@@ -28,6 +28,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-undertow')
 	compile("org.springframework.boot:spring-boot-starter-data-gemfire")
 	compile("com.fasterxml.jackson.core:jackson-databind")
+	compile("javax.inject:javax.inject:1")
 	runtime("org.springframework.shell:spring-shell:1.0.0.RELEASE")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

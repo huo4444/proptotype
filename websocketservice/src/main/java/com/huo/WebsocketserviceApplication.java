@@ -14,11 +14,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import com.gemstone.gemfire.cache.GemFireCache;
 
-
 @SpringBootApplication
-@ComponentScan(basePackages = "com.huo")
-@ImportResource("gemfire-context.xml")
-@EnableWebSocket
+//@ComponentScan(basePackages = "com.huo")
+//@EnableWebSocket
 public class WebsocketserviceApplication {
 
 	public static void main(String[] args) {

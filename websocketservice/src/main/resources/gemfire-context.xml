@@ -7,7 +7,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/gemfire http://www.springframework.org/schema/gemfire/spring-gemfire.xsd
   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
-
+    <!--<context:component-scan base-package="com.huo" > </context:component-scan>-->
+    <!--<context:annotation-config></context:annotation-config>-->
     <util:properties id="gemfire-props">
         <prop key="log-level">warning</prop>
     </util:properties>
@@ -19,6 +20,14 @@
     </gfe:pool>
     <gfe:client-region id="customer" name="Customer"
                        cache-ref="gemfireCache" pool-name="pool" shortcut="PROXY"/>
+
+    <bean id="cacheManager" class="org.springframework.data.gemfire.support.GemfireCacheManager">
+        <property name="regions">
+            <set>
+                <ref bean="customer"/>
+            </set>
+        </property>
+    </bean>
     <!--
     <beans profile="default">
         <gfe:cache use-bean-factory-locator="false" properties-ref="gemfire-props"/>
